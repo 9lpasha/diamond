@@ -206,7 +206,7 @@ const CanvasMain = () => {
         }}>
             <ComponentForState bool={bool} setCoord={setCoordState} moveToEdge={moveToEdge} setMoveToEdge={setMoveToEdge}
             finalCoordState={finalCoordState} camera={camera.current}/>
-            <OrbitControls minDistance={3.1} maxDistance={10} onEnd={() => {
+            <OrbitControls minDistance={3.1} rotateSpeed={0.5} maxDistance={10} onEnd={() => {
                 setMoveStarted(true)
                 setMoveEnded(false)
             }} onChange={(e) => {

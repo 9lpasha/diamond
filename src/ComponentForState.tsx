@@ -32,7 +32,10 @@ const ComponentForState = ({
     const [deltaZ, setDeltaZ] = useState<number>(0)
 
     useEffect(() => {
-        //console.log(state.camera.rotation.x, state.camera.rotation.y, state.camera.rotation.z)
+        console.log(state)
+    }, [])
+
+    useEffect(() => {
         setCoord({
             x: state.camera.position.x,
             y: state.camera.position.y,
