@@ -1,6 +1,8 @@
 import './App.css'
 import React from "react";
 import CanvasMain from "./CanvasMain";
+import * as diamondFile from '../public/diamond.gltf'
+import * as diamondFile2 from '../public/scene.bin'
 
 function App() {
 
