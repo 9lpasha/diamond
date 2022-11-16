@@ -42,7 +42,7 @@ function App() {
                 transform: 'translate(-50%, 0)'
             }} className="glow-on-hover" type="button" onClick={() => {
                 setIsClicked(!isClicked)
-                console.log('sadas')
+                //console.log('sadas')
             }}>Запустить
             </button>
             <div style={{

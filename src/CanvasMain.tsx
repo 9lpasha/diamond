@@ -3,7 +3,10 @@ import {OrbitControls} from "@react-three/drei";
 import {Diamond} from "./diamond/Diamond";
 import {Canvas, useThree} from "@react-three/fiber";
 import ComponentForState from "./ComponentForState";
-import { PlaneGeometry } from 'three'
+import {PlaneGeometry} from 'three'
+import {
+    Clock
+} from "three";
 
 let timeout: any
 
@@ -14,16 +17,16 @@ interface CanvasMainProps {
 }
 
 let flagForTimeout = false
-let n = 0.003
-let deltaY = 10
-let deltaZ = 10
+let n = 0.001
+let deltaY = 0
+let deltaZ = 0
 let isClicked2 = false
+let clock: any
 
 const timeoutForButton = () => setTimeout(() => {
     flagForTimeout = false
-    n = 0.003
+    n = 0.001
 }, 1500)
-
 
 const CanvasMain = ({isClicked, setIsClicked, setRandom}: CanvasMainProps) => {
 
@@ -223,6 +226,7 @@ const CanvasMain = ({isClicked, setIsClicked, setRandom}: CanvasMainProps) => {
 
     useEffect(() => {
         if (isClicked) {
+            clock = new Date()//Clock()
             flagForTimeout = true
             timeoutForButton()
             isClicked2 = true;
@@ -234,9 +238,13 @@ const CanvasMain = ({isClicked, setIsClicked, setRandom}: CanvasMainProps) => {
 
     useEffect(() => {
         if (isClicked && isClicked2) {
+            const nowTime = new Date()
+            const tempAngle: any = (nowTime.getTime() - clock.getTime()) / 1500 * 0.002
             if (flagForTimeout) {
-                state.scene.children[14].rotation.set(state.scene.children[14].rotation.x + n,
-                    state.scene.children[14].rotation.y + n * 0.5, state.scene.children[14].rotation.z + n * 0.5)
+                console.log(nowTime.getTime() - clock.getTime())
+                state.scene.children[14].rotation.set(state.scene.children[14].rotation.x + tempAngle,
+                    state.scene.children[14].rotation.y + tempAngle * 0.5,
+                    state.scene.children[14].rotation.z + tempAngle * 0.5)
                 setNewState((prev) => !prev)
             } else {
                 const fromLocalStorage = localStorage.getItem('delta')
@@ -245,18 +253,18 @@ const CanvasMain = ({isClicked, setIsClicked, setRandom}: CanvasMainProps) => {
                     deltaY = JSON.parse(fromLocalStorage).y
                     deltaZ = JSON.parse(fromLocalStorage).z
                 } else {
-                    deltaY = (0 - state.scene.children[14].rotation.y % 6.28) / 400
-                    deltaZ = (4.71 - state.scene.children[14].rotation.z % 6.28) / 400
+                    deltaY = (0 - state.scene.children[14].rotation.y % 6.28) / 1800
+                    deltaZ = (4.71 - state.scene.children[14].rotation.z % 6.28) / 1800
                     localStorage.setItem('delta', JSON.stringify({
-                        y: (0 - state.scene.children[14].rotation.y % 6.28) / 400,
-                        z: (4.71 - state.scene.children[14].rotation.z % 6.28) / 400
+                        y: (0 - state.scene.children[14].rotation.y % 6.28) / 1800,
+                        z: (4.71 - state.scene.children[14].rotation.z % 6.28) / 1800
                     }))
                 }
                 n -= 1
-                console.log(deltaY)
-                console.log(deltaZ)
-                console.log(state.scene.children[14].rotation.y % 3.14)
-                console.log(state.scene.children[14].rotation.z % 3.14 + 1.57)
+                // console.log(deltaY)
+                // console.log(deltaZ)
+                // console.log(state.scene.children[14].rotation.y % 3.14)
+                // console.log(state.scene.children[14].rotation.z % 3.14 + 1.57)
 
                 const stRot = state.scene.children[14].rotation
                 if ((stRot.y % 6.28 > 0 && stRot.y % 6.28 < 0.01) ||
@@ -264,14 +272,14 @@ const CanvasMain = ({isClicked, setIsClicked, setRandom}: CanvasMainProps) => {
                     (stRot.z % 6.28 - 4.71 > 0 && stRot.z % 6.28 - 4.71 < 0.01) ||
                     (stRot.z % 6.28 - 4.71 < 0 && stRot.z % 6.28 - 4.71 > -0.01)) {
                     console.log('//////////////////////////')
-                    console.log(state.scene.children[14].rotation.y % 3.14)
-                    console.log(state.scene.children[14].rotation.z % 6.28)
+                    // console.log(state.scene.children[14].rotation.y % 3.14)
+                    // console.log(state.scene.children[14].rotation.z % 6.28)
                     console.log('//////////////////////////')
                     console.log('end')
                     console.log(n)
                     setIsClicked(false)
                     isClicked2 = false
-                    n = 0.003
+                    n = 0.001
                     localStorage.removeItem('delta');
                     (document.querySelector('.answer') as HTMLDivElement).style.transition = 'opacity 0.2s linear';
                     (document.querySelector('.answer') as HTMLDivElement).style.opacity = '1';
@@ -344,10 +352,12 @@ const CanvasMain = ({isClicked, setIsClicked, setRandom}: CanvasMainProps) => {
             <pointLight intensity={.1} position={[5, -5, -5]} color={'#B9F2FF'}/>
             {/*<pointLight intensity={.1} position={[-5, 5, 5]} color={'#B9F2FF'}/>*/}
             <pointLight intensity={.1} position={[-5, 5, -5]} color={'#B9F2FF'}/>
+            <pointLight intensity={.1} position={[-5, 5, -5]} color={'#B9F2FF'}/>
+            <pointLight intensity={.1} position={[-5, 5, -5]} color={'#B9F2FF'}/>
             <pointLight intensity={.1} position={[-5, -5, 5]} color={'#B9F2FF'}/>
             <pointLight intensity={.1} position={[-5, -5, -5]} color={'#B9F2FF'}/>
-            <mesh geometry={new PlaneGeometry(20, 20)} receiveShadow={true} position={[0, -6, 0]}/>
-            <mesh geometry={new PlaneGeometry(20, 20)} receiveShadow={true} position={[0, -6, 0]}/>
+            {/*<mesh geometry={new PlaneGeometry(20, 20)} receiveShadow={true} position={[0, -6, 0]}/>*/}
+            {/*<mesh geometry={new PlaneGeometry(20, 20)} receiveShadow={true} position={[0, -6, 0]}/>*/}
             <Diamond position={0}/>
 
         </>

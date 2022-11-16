@@ -21,7 +21,7 @@ export function Diamond({position}: DiamondProps) {
 
     return (
         <group scale={1} onAfterRender={() => {
-            console.log(state.scene.children[14].rotation)
+           // console.log(state.scene.children[14].rotation)
         }}>
             <group>
                 <mesh geometry={nodes.Object_4.geometry} material={materials["Material.001"]} scale={1}
