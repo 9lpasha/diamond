@@ -18,10 +18,10 @@ function App() {
                 navigator.userAgent
             )
         ) {
-            (document.querySelector(".Container") as HTMLDivElement).style.height =
+            (document.querySelector(".App") as HTMLDivElement).style.height =
                 window.innerHeight + "px";
         } else {
-            (document.querySelector(".Container") as HTMLDivElement).style.height = "100vh";
+            (document.querySelector(".App") as HTMLDivElement).style.height = "100vh";
         }
     }, [])
 
