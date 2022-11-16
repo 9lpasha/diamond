@@ -3,6 +3,7 @@ import {OrbitControls} from "@react-three/drei";
 import {Diamond} from "./diamond/Diamond";
 import {Canvas, useThree} from "@react-three/fiber";
 import ComponentForState from "./ComponentForState";
+import { PlaneGeometry } from 'three'
 
 let timeout: any
 
@@ -339,13 +340,16 @@ const CanvasMain = ({isClicked, setIsClicked, setRandom}: CanvasMainProps) => {
             {/*sadda*/}
             <pointLight intensity={.1} position={[5, 5, 5]} color={'#B9F2FF'}/>
             <pointLight intensity={.1} position={[5, 5, -5]} color={'#B9F2FF'}/>
-            <pointLight intensity={.1} position={[5, -5, 5]} color={'#B9F2FF'}/>
+            {/*<pointLight intensity={.1} position={[5, -5, 5]} color={'#B9F2FF'}/>*/}
             <pointLight intensity={.1} position={[5, -5, -5]} color={'#B9F2FF'}/>
-            <pointLight intensity={.1} position={[-5, 5, 5]} color={'#B9F2FF'}/>
+            {/*<pointLight intensity={.1} position={[-5, 5, 5]} color={'#B9F2FF'}/>*/}
             <pointLight intensity={.1} position={[-5, 5, -5]} color={'#B9F2FF'}/>
             <pointLight intensity={.1} position={[-5, -5, 5]} color={'#B9F2FF'}/>
             <pointLight intensity={.1} position={[-5, -5, -5]} color={'#B9F2FF'}/>
+            <mesh geometry={new PlaneGeometry(20, 20)} receiveShadow={true} position={[0, -6, 0]}/>
+            <mesh geometry={new PlaneGeometry(20, 20)} receiveShadow={true} position={[0, -6, 0]}/>
             <Diamond position={0}/>
+
         </>
     );
 };

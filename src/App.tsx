@@ -32,7 +32,7 @@ function App() {
             <div className="bg bg3"></div>
             <Canvas ref={canvas} camera={{
                 fov: 75, near: 1, far: 20, position: [3.1, 0, 0]
-            }}>
+            }} shadows={true}>
                 <CanvasMain isClicked={isClicked} setIsClicked={setIsClicked} setRandom={setRandom}/>
             </Canvas>
             <button style={{
