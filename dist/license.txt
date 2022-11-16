@@ -1,11 +1,11 @@
 Model Information:
-* title:	Diamond
-* source:	https://sketchfab.com/3d-models/diamond-0363f038a3ad4c5da234490c9879805e
-* author:	Jiří Kuba (https://sketchfab.com/kuba.jirka)
+* title:	Faceted Diamond or Brilliant
+* source:	https://sketchfab.com/3d-models/faceted-diamond-or-brilliant-ffe68d693c4a4d62823fd2fd621d7e3b
+* author:	Incg5764 (https://sketchfab.com/incg5764)
 
 Model License:
 * license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
 * requirements:	Author must be credited. Commercial use is allowed.
 
 If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
-This work is based on "Diamond" (https://sketchfab.com/3d-models/diamond-0363f038a3ad4c5da234490c9879805e) by Jiří Kuba (https://sketchfab.com/kuba.jirka) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+This work is based on "Faceted Diamond or Brilliant" (https://sketchfab.com/3d-models/faceted-diamond-or-brilliant-ffe68d693c4a4d62823fd2fd621d7e3b) by Incg5764 (https://sketchfab.com/incg5764) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

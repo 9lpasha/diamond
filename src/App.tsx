@@ -1,5 +1,5 @@
 import './App.css'
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import CanvasMain from "./CanvasMain";
 import {Canvas} from "@react-three/fiber";
 
@@ -11,6 +11,19 @@ function App() {
     const canvas = useRef<HTMLCanvasElement>(null)
     const [labelsOnDiamonds] = useState(['Абаза', 'Абакан', 'Абдулино', 'Абинск', 'Агидель', 'Агрыз', 'Адыгейск', 'Азнакаево', 'Азов', 'Ак-Довурак', 'Аксай', 'Алагир', 'Алапаевск', 'Алатырь', 'Алдан', 'Алейск', 'Александров', 'Александровск-Сахалинский', 'Александровск', 'Алексеевка', 'Алексин', 'Алзамай', 'Алупка', 'Алушта', 'Альметьевск', 'Амурск', 'Анадырь', 'Анапа', 'Ангарск', 'Андреаполь', 'Анжеро-Судженск', 'Анива', 'Апатиты', 'Апрелевка', 'Апшеронск', 'Арамиль', 'Аргун', 'Ардатов', 'Ардон', 'Арзамас', 'Аркадак', 'Армавир', 'Армянск', 'Арсеньев', 'Арск', 'Артём', 'Артёмовск', 'Артёмовский', 'Архангельск', 'Асбест'])
     const [random, setRandom] = useState(0)
+
+    useEffect(() => {
+        if (
+            /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(
+                navigator.userAgent
+            )
+        ) {
+            (document.querySelector(".Container") as HTMLDivElement).style.height =
+                window.innerHeight + "px";
+        } else {
+            (document.querySelector(".Container") as HTMLDivElement).style.height = "100vh";
+        }
+    }, [])
 
     return (
         <div className="App" style={{width: '100vw', height: '100vh', position: 'relative'}}>
