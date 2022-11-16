@@ -8,18 +8,26 @@ title: Diamond
 
 import React from 'react'
 import {useGLTF} from '@react-three/drei'
+import {useThree} from "@react-three/fiber";
 
-interface DiamondProps{
+interface DiamondProps {
     position: number
 }
 
-export function Diamond({ position }: DiamondProps) {
+export function Diamond({position}: DiamondProps) {
+
     const {nodes, materials}: any = useGLTF('/scene.gltf')
+    const state = useThree()
+
     return (
-        <group scale={1}>
-            <group rotation={[-Math.PI / 2, 0, 0]}>
-                <mesh geometry={nodes.Diamond_0.geometry} material={materials.DiamondMaterial} scale={2}
-                      position={[position, position, position]}/>
+        <group scale={1} onAfterRender={() => {
+            console.log(state.scene.children[14].rotation)
+        }}>
+            <group>
+                <mesh geometry={nodes.Object_4.geometry} material={materials["Material.001"]} scale={1}
+                      position={[position, position, position]}/* rotation={[0, 0, -1.57]}*/>
+                    <meshStandardMaterial color={'#B9F2FF'} metalness={3.5}/>
+                </mesh>
             </group>
         </group>
     )
