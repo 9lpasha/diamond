@@ -23,6 +23,7 @@ const timeoutForButton = () => setTimeout(() => {
     n = 0.003
 }, 1500)
 
+
 const CanvasMain = ({isClicked, setIsClicked, setRandom}: CanvasMainProps) => {
 
     const [moveStarted, setMoveStarted] = useState<boolean>(false)
