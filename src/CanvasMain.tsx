@@ -22,6 +22,8 @@ let deltaY = 0
 let deltaZ = 0
 let isClicked2 = false
 let clock: any
+let flag2: boolean = false
+let clock2: any
 let startX: number
 let startY: number
 let startZ: number
@@ -253,47 +255,45 @@ const CanvasMain = ({isClicked, setIsClicked, setRandom}: CanvasMainProps) => {
                     startZ + tempAngle * 0.5)
                 setNewState((prev) => !prev)
             } else {
-                const fromLocalStorage = localStorage.getItem('delta')
 
-                if (fromLocalStorage) {
-                    deltaY = JSON.parse(fromLocalStorage).y
-                    deltaZ = JSON.parse(fromLocalStorage).z
-                } else {
-                    deltaY = (0 - state.scene.children[14].rotation.y % 6.28) / 1800
-                    deltaZ = (4.71 - state.scene.children[14].rotation.z % 6.28) / 1800
-                    localStorage.setItem('delta', JSON.stringify({
-                        y: (0 - state.scene.children[14].rotation.y % 6.28) / 1800,
-                        z: (4.71 - state.scene.children[14].rotation.z % 6.28) / 1800
-                    }))
+                if(!flag2){
+                    const nowTime = new Date()
+                    clock2 = new Date()
+                    deltaY = 0 - state.scene.children[14].rotation.y % 6.28
+                    deltaZ = 4.71 - state.scene.children[14].rotation.z % 6.28
+                    flag2 = true
+                    startX = state.scene.children[14].rotation.x
+                    startY = state.scene.children[14].rotation.y
+                    startZ = state.scene.children[14].rotation.z
+
+                    console.log(deltaY, deltaZ, startY, startZ)
                 }
-                n -= 1
-                // console.log(deltaY)
-                // console.log(deltaZ)
-                // console.log(state.scene.children[14].rotation.y % 3.14)
-                // console.log(state.scene.children[14].rotation.z % 3.14 + 1.57)
 
                 const stRot = state.scene.children[14].rotation
-                if ((stRot.y % 6.28 > 0 && stRot.y % 6.28 < 0.01) ||
-                    (stRot.y % 6.28 < 0 && stRot.y % 6.28 > -0.01) &&
-                    (stRot.z % 6.28 - 4.71 > 0 && stRot.z % 6.28 - 4.71 < 0.01) ||
-                    (stRot.z % 6.28 - 4.71 < 0 && stRot.z % 6.28 - 4.71 > -0.01)) {
+
+                if ((stRot.y % 6.28 > 0 && stRot.y % 6.28 < 0.1) ||
+                    (stRot.y % 6.28 < 0 && stRot.y % 6.28 > -0.1) &&
+                    (stRot.z % 6.28 - 4.71 > 0 && stRot.z % 6.28 - 4.71 < 0.1) ||
+                    (stRot.z % 6.28 - 4.71 < 0 && stRot.z % 6.28 - 4.71 > -0.1)) {
                     console.log('//////////////////////////')
-                    // console.log(state.scene.children[14].rotation.y % 3.14)
-                    // console.log(state.scene.children[14].rotation.z % 6.28)
+
+                    console.log(stRot.y, stRot.z)
+
                     console.log('//////////////////////////')
-                    console.log('end')
-                    console.log(n)
+
                     setIsClicked(false)
                     isClicked2 = false
                     n = 0.001
                     localStorage.removeItem('delta');
                     (document.querySelector('.answer') as HTMLDivElement).style.transition = 'opacity 0.2s linear';
                     (document.querySelector('.answer') as HTMLDivElement).style.opacity = '1';
+                    flag2 = false
                 } else {
+                    console.log((nowTime.getTime() - clock2.getTime()))
                     state.scene.children[14].rotation.set(
-                        state.scene.children[14].rotation.x % 6.28,
-                        state.scene.children[14].rotation.y + deltaY % 6.28,
-                        state.scene.children[14].rotation.z + deltaZ % 6.28)
+                        startX % 6.28,
+                        startY + deltaY * (nowTime.getTime() - clock2.getTime()) / 1000 % 6.28,
+                        startZ + deltaZ * (nowTime.getTime() - clock2.getTime()) / 1000 % 6.28)
                     setNewState((prev) => !prev)
                 }
             }
