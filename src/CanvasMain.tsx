@@ -13,14 +13,14 @@ interface CanvasMainProps {
 }
 
 let flagForTimeout = false
-let n = 0.005
+let n = 0.003
 let deltaY = 10
 let deltaZ = 10
 let isClicked2 = false
 
 const timeoutForButton = () => setTimeout(() => {
     flagForTimeout = false
-    n = 0.005
+    n = 0.003
 }, 1500)
 
 const CanvasMain = ({isClicked, setIsClicked, setRandom}: CanvasMainProps) => {
@@ -269,7 +269,7 @@ const CanvasMain = ({isClicked, setIsClicked, setRandom}: CanvasMainProps) => {
                     console.log(n)
                     setIsClicked(false)
                     isClicked2 = false
-                    n = 0.005
+                    n = 0.003
                     localStorage.removeItem('delta');
                     (document.querySelector('.answer') as HTMLDivElement).style.transition = 'opacity 0.2s linear';
                     (document.querySelector('.answer') as HTMLDivElement).style.opacity = '1';
