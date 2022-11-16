@@ -9,6 +9,8 @@ function App() {
     const [isClicked, setIsClicked] = useState<boolean>(false)
     const [delta] = useState([])
     const canvas = useRef<HTMLCanvasElement>(null)
+    const [labelsOnDiamonds] = useState(['Абаза', 'Абакан', 'Абдулино', 'Абинск', 'Агидель', 'Агрыз', 'Адыгейск', 'Азнакаево', 'Азов', 'Ак-Довурак', 'Аксай', 'Алагир', 'Алапаевск', 'Алатырь', 'Алдан', 'Алейск', 'Александров', 'Александровск-Сахалинский', 'Александровск', 'Алексеевка', 'Алексин', 'Алзамай', 'Алупка', 'Алушта', 'Альметьевск', 'Амурск', 'Анадырь', 'Анапа', 'Ангарск', 'Андреаполь', 'Анжеро-Судженск', 'Анива', 'Апатиты', 'Апрелевка', 'Апшеронск', 'Арамиль', 'Аргун', 'Ардатов', 'Ардон', 'Арзамас', 'Аркадак', 'Армавир', 'Армянск', 'Арсеньев', 'Арск', 'Артём', 'Артёмовск', 'Артёмовский', 'Архангельск', 'Асбест'])
+    const [random, setRandom] = useState(0)
 
     return (
         <div className="App" style={{width: '100vw', height: '100vh', position: 'relative'}}>
@@ -18,7 +20,7 @@ function App() {
             <Canvas ref={canvas} camera={{
                 fov: 75, near: 1, far: 20, position: [3.1, 0, 0]
             }}>
-                <CanvasMain isClicked={isClicked} setIsClicked={setIsClicked}/>
+                <CanvasMain isClicked={isClicked} setIsClicked={setIsClicked} setRandom={setRandom}/>
             </Canvas>
             <button style={{
                 position: 'absolute',
@@ -31,12 +33,10 @@ function App() {
             }}>Запустить
             </button>
             <div style={{
-                display: /*ifAnswer ? 'block' : */'none'
+                /*display: 'none',*/
+                opacity: '0'
             }} className='answer'>
-                Большой ответ!
-                Большой ответ!
-                Большой ответ!
-                Большой ответ!
+                {labelsOnDiamonds[random]}
             </div>
         </div>
     )

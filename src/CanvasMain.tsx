@@ -9,6 +9,7 @@ let timeout: any
 interface CanvasMainProps {
     isClicked: boolean
     setIsClicked: any
+    setRandom: any
 }
 
 let flagForTimeout = false
@@ -22,7 +23,7 @@ const timeoutForButton = () => setTimeout(() => {
     n = 0.005
 }, 1500)
 
-const CanvasMain = ({isClicked, setIsClicked}: CanvasMainProps) => {
+const CanvasMain = ({isClicked, setIsClicked, setRandom}: CanvasMainProps) => {
 
     const [moveStarted, setMoveStarted] = useState<boolean>(false)
     const [moveEnded, setMoveEnded] = useState<boolean>(true)
@@ -222,9 +223,11 @@ const CanvasMain = ({isClicked, setIsClicked}: CanvasMainProps) => {
         if (isClicked) {
             flagForTimeout = true
             timeoutForButton()
-            isClicked2 = true
+            isClicked2 = true;
+            setRandom(Math.ceil(Math.random() * 49));
+            (document.querySelector('.answer') as HTMLDivElement).style.transition = 'none';
+            (document.querySelector('.answer') as HTMLDivElement).style.opacity = '0'
         }
-        console.log(state.scene.children[14].rotation)
     }, [isClicked])
 
     useEffect(() => {
@@ -240,11 +243,11 @@ const CanvasMain = ({isClicked, setIsClicked}: CanvasMainProps) => {
                     deltaY = JSON.parse(fromLocalStorage).y
                     deltaZ = JSON.parse(fromLocalStorage).z
                 } else {
-                    deltaY = (0 - state.scene.children[14].rotation.y % 3.14) / 400
-                    deltaZ = (-1.57 - state.scene.children[14].rotation.z % 3.14) / 400
+                    deltaY = (0 - state.scene.children[14].rotation.y % 6.28) / 400
+                    deltaZ = (4.71 - state.scene.children[14].rotation.z % 6.28) / 400
                     localStorage.setItem('delta', JSON.stringify({
-                        y: (0 - state.scene.children[14].rotation.y % 3.14) / 400,
-                        z: (-1.57 - state.scene.children[14].rotation.z % 3.14) / 400
+                        y: (0 - state.scene.children[14].rotation.y % 6.28) / 400,
+                        z: (4.71 - state.scene.children[14].rotation.z % 6.28) / 400
                     }))
                 }
                 n -= 1
@@ -267,7 +270,9 @@ const CanvasMain = ({isClicked, setIsClicked}: CanvasMainProps) => {
                     setIsClicked(false)
                     isClicked2 = false
                     n = 0.005
-                    localStorage.removeItem('delta')
+                    localStorage.removeItem('delta');
+                    (document.querySelector('.answer') as HTMLDivElement).style.transition = 'opacity 0.2s linear';
+                    (document.querySelector('.answer') as HTMLDivElement).style.opacity = '1';
                 } else {
                     state.scene.children[14].rotation.set(
                         state.scene.children[14].rotation.x % 6.28,
