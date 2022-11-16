@@ -22,6 +22,9 @@ let deltaY = 0
 let deltaZ = 0
 let isClicked2 = false
 let clock: any
+let startX: number
+let startY: number
+let startZ: number
 
 const timeoutForButton = () => setTimeout(() => {
     flagForTimeout = false
@@ -226,7 +229,10 @@ const CanvasMain = ({isClicked, setIsClicked, setRandom}: CanvasMainProps) => {
 
     useEffect(() => {
         if (isClicked) {
-            clock = new Date()//Clock()
+            startX = state.scene.children[14].rotation.x
+            startY = state.scene.children[14].rotation.y
+            startZ = state.scene.children[14].rotation.z
+            clock = new Date()
             flagForTimeout = true
             timeoutForButton()
             isClicked2 = true;
@@ -239,12 +245,12 @@ const CanvasMain = ({isClicked, setIsClicked, setRandom}: CanvasMainProps) => {
     useEffect(() => {
         if (isClicked && isClicked2) {
             const nowTime = new Date()
-            const tempAngle: any = (nowTime.getTime() - clock.getTime()) / 1500 * 0.002
+            const tempAngle: any = (nowTime.getTime() - clock.getTime()) / 1500 * 5
             if (flagForTimeout) {
-                console.log(nowTime.getTime() - clock.getTime())
-                state.scene.children[14].rotation.set(state.scene.children[14].rotation.x + tempAngle,
-                    state.scene.children[14].rotation.y + tempAngle * 0.5,
-                    state.scene.children[14].rotation.z + tempAngle * 0.5)
+                console.log(state.scene.children[14].rotation)
+                state.scene.children[14].rotation.set(startX + tempAngle,
+                    startY + tempAngle * 0.5,
+                    startZ + tempAngle * 0.5)
                 setNewState((prev) => !prev)
             } else {
                 const fromLocalStorage = localStorage.getItem('delta')
